@@ -1,26 +1,23 @@
 #QR CODE GENERATOR
-#version 1.0
+#version 1.1
 #by Amlan Saha Kundu
-#FunWithPython --- Day 1, Hour 1.
+#FunWithPython --- Day 1, Hour 2.
 
-#============================================================================================================================================
+#===================================================================================================================================================================================
 
 import pyqrcode, sys
 
-#Welcome User :)
-
+#Welcome User :) -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 print('Enter your name :')
 user = input()
-print('Hi '+ user + ' ! \n')
-print('Welcome to QR Code Generator v1.0')
+print('\n Hi '+ user + ' ! \n')
+print('='*33+'\n'+'Welcome to QR Code Generator v1.1'+'\n'+'='*33+'\n ')
 
-#input value.
-
-print('Please input the value :')
+#input value. ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+print('Please enter the value, you want to save in QRcode :')
 value = input()
 
-#Color Option
-
+#Color Option-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 print('Default QR code color is BLACK and background color is WHITE. \n But you can change it  below. \n Press ENTER to skip changing and set that back to default.')
 colflag = 0;
 while colflag != 1:
@@ -35,8 +32,8 @@ if len(qrcolor)==0:
     qrcolor = '000'
 else:
     qrcolor = qrcolor
-    
-bgflag = 0
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
+bgflag = 0;
 while bgflag != 1:
     print('Enter the background color (in hex)(Do not use #):')
     bgcolor = input()
@@ -49,20 +46,18 @@ if len(bgcolor)==0:
     bgcolor = 'fff'
 else:
     bgcolor = bgcolor
-    
-#Size
-
+#Size---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 print('Default Size of the QR code is 10. \n  But you can change it below. \n Press ENTER to skip changing and set that back to default.')
 size = input()
+if len(size)== 0:
+    size = 10
 
-#Generate QR code.
-
+#Generate QR code.--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 qr = pyqrcode.create(str(value))
 
-#Exporting QR code
+#Export QR code_______________________________________________________________________________________________________________________________________________________________________
 
-#Output Location and format:
-
+#Output Location and format:----------------------------------------------------------------------------------------------------------------------------------------------------------
 print('Please ENTER the output folder location below.')
 print('Remember USE FORWARD SLASH (/) instead of backslash (\\) while entering the file location.')
 print('eg: C:/Users/ABC/Pictures')
@@ -84,7 +79,7 @@ while True:
     else:
         continue
     
-#Generating Output
+#Generating Output-------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
 if int(mat)==1:
     dest = str(fol)+'/'+str(name)+'.png'
