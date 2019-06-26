@@ -13,9 +13,10 @@ import skimage
 from skimage import *
 
 #Welcome User :)
-print('Input your name :')
+print('Enter your name :')
 user = input()
 print('Hi '+ user + ' ! \n')
+print('Welcome to IMAGE RESIZER v0.1')
 
 #input the file location
 
