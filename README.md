@@ -31,3 +31,15 @@ Features:
 
 Here is the screen shot of QR code generator.
 ![QR code generator v1.2](https://theamlan.files.wordpress.com/2019/06/qr-code.png?w=768)
+
+## 3. GOOGLE TRANSLATOR v0.1 
+
+Modules you need to be installed:
+- googletrans
+
+Features:
+  - Auto-detection of input language
+  - Instant translation to any language using CLI
+  
+ Here is the screen shot of image resizer.
+![Google Translator v0.1](https://theamlan.files.wordpress.com/2019/06/google-translator.png?w=768)
