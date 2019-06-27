@@ -12,7 +12,7 @@ Features:
   - Fast Image processing
   - Customizable output destination
   
- Here is the screen shot of image resizer.
+ Here is the screen shot of image resizer -
   
 ![Image Resizer v0.1](https://theamlan.files.wordpress.com/2019/06/image-resizer.png)
 
@@ -23,13 +23,13 @@ Modules you need to be installed:
 - pyqrcode
 
 Features:
- - Instant QR Code generation.
+ - Instant QR Code generation
   - Custom color option (foreground and background)
   - Customizable Size
   - Own file name and destination
   - Output in PNG or SVG format
 
-Here is the screen shot of QR code generator.
+Here is the screen shot of QR code generator -
 ![QR code generator v1.2](https://theamlan.files.wordpress.com/2019/06/qr-code.png)
 
 ## 3. GOOGLE TRANSLATOR v0.1 
@@ -41,5 +41,5 @@ Features:
   - Auto-detection of input language
   - Instant translation to any language using CLI
   
- Here is the screen shot of image resizer.
+ Here is the screen shot of image resizer -
 ![Google Translator v0.1](https://theamlan.files.wordpress.com/2019/06/google-translator.png)
