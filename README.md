@@ -14,7 +14,7 @@ Features:
   
  Here is the screen shot of image resizer.
   
-![Image Resizer v0.1](https://theamlan.files.wordpress.com/2019/06/image-resizer.png?w=768)
+![Image Resizer v0.1](https://theamlan.files.wordpress.com/2019/06/image-resizer.png)
 
 ## 2. QR CODE GENERATOR v1.2
 
@@ -30,7 +30,7 @@ Features:
   - Output in PNG or SVG format
 
 Here is the screen shot of QR code generator.
-![QR code generator v1.2](https://theamlan.files.wordpress.com/2019/06/qr-code.png?w=768)
+![QR code generator v1.2](https://theamlan.files.wordpress.com/2019/06/qr-code.png)
 
 ## 3. GOOGLE TRANSLATOR v0.1 
 
@@ -42,4 +42,4 @@ Features:
   - Instant translation to any language using CLI
   
  Here is the screen shot of image resizer.
-![Google Translator v0.1](https://theamlan.files.wordpress.com/2019/06/google-translator.png?w=768)
+![Google Translator v0.1](https://theamlan.files.wordpress.com/2019/06/google-translator.png)
