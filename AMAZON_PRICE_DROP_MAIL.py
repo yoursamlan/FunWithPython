@@ -1,6 +1,11 @@
 #PRICE ALERT FOR AMAZON and SENDING MAIL and PUSH NOTIFICATION
 #CREATED BY AMLAN SAHA KUNDU
-#ver 1.1
+#ver 2.0
+
+#What's new in version 2.0 ?
+# 1. Added push notification features for android.
+# 2. New formatting in EMAIL SECTION.
+# 3. Confirmation mail after sending MAIL and NOTIFICATION
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
