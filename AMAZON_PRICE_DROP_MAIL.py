@@ -5,7 +5,7 @@
 #What's new in version 2.0 ?
 # 1. Added push notification features for android.
 # 2. New formatting in EMAIL SECTION.
-# 3. Confirmation mail after sending MAIL and NOTIFICATION
+# 3. Confirmation message after sending MAIL and PUSH NOTIFICATION
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
