@@ -1,17 +1,23 @@
 #PRICE ALERT FOR AMAZON and SENDING MAIL and PUSH NOTIFICATION
 #CREATED BY AMLAN SAHA KUNDU
-#ver 2.0
+#ver 2.1
 
 #What's new in version 2.0 ?
 # 1. Added push notification features for android.
 # 2. New formatting in EMAIL SECTION.
-# 3. Confirmation message after sending MAIL and PUSH NOTIFICATION
+# 3. Confirmation message after sending MAIL and NOTIFICATION
+
+#What's new in version 2.1 ?
+# 1. Minor bug fixing
+# 2. Time stamp added
+# 3. No. of attempts added
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import requests,os,sys,time,smtplib
+import requests,time,smtplib
 from bs4 import  BeautifulSoup
 from notify_run import Notify
+from datetime import datetime
 
 #USER INPUT-------------------------------------but I make it comment because I want to specify this product only.
 '''
@@ -22,7 +28,6 @@ dp = int(input("Enter your desired price : "))
 
 url = "https://www.amazon.in/Philips-Trimmer-Cordless-QT4001-15/dp/B00L8PEEAI/ref=sr_1_4?crid=26OVQAIRQLJUU&keywords=philips+qt4011%2F15&qid=1569507835&s=hpc&sprefix=philips+qt%2Chpc%2C361&sr=1-4"
 dp = 1200
-
 URL = url
 headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'}
 
@@ -31,7 +36,7 @@ page = requests.get(URL, headers=headers)
 
 soup= BeautifulSoup(page.content,'html.parser')
 
-#-----------------------------------------------COMMENT TO CHECK WHETHER soup IS WORKING OR NOT
+#----------------------------------------------------- TO CHECK WHETHER soup IS WORKING OR NOT
 '''
 m=open('soupw.txt',"wb")
 m.write(soup.prettify().encode("utf-8"))
@@ -62,8 +67,9 @@ title1=str(title.strip())
 main_price1 = main_price
 pnmsg = "Rs. "+str(main_price1)+" for "+title1
 
-print(title1)
-print(main_price1)
+print("NAME : "+ title1)
+print("CURRENT PRICE : "+ str(main_price1))
+print("DESIRED PRICE : "+ str(dp))
 #-----------------------------------------------Temporary fixed for values under Rs. 9,999
 
 '''
@@ -80,10 +86,13 @@ print(type(dp))
 
 
 def check_price():
+    count = 0
     if(price_now <= dp):
         send_mail()
+        push_notification()
     else:
-        print("Rechecking...")
+        count = count+1
+        print("Rechecking... Last checked at "+str(datetime.now()))
         
 #Lets send the mail-----------------------------------------------------------------
 
@@ -106,20 +115,25 @@ def send_mail():
         msg
     )
     print("HEY AMLAN, EMAIL HAS BEEN SENT SUCCESSFULLY.")
-    print("Check again after an hour.")
+
 
     server.quit()
 #Now lets send the push notification-------------------------------------------------
 
-notify = Notify()
-notify.send(pnmsg)
-print("HEY AMLAN, PUSH NOTIFICATION HAS BEEN SENT SUCCESSFULLY.")
+def push_notification():
+    notify = Notify()
+    notify.send(pnmsg)
+    print("HEY AMLAN, PUSH NOTIFICATION HAS BEEN SENT SUCCESSFULLY.")
     
-#Now lets check the price after 1 hr -----------------------------------------------   
+    print("Check again after an hour.")
+#Now lets check the price after 1 min -----------------------------------------------   
+count = 0
 while(True):
+    count += 1
+    print("Count : "+str(count))
     check_price()
     time.sleep(3600)
-
+    
 
 
 #WINDOWS 10 tricks to keep this open
