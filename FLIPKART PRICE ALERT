@@ -1,0 +1,155 @@
+#PRICE ALERT FOR FLIPKART by SENDING MAIL and PUSH NOTIFICATION
+#CREATED BY AMLAN SAHA KUNDU
+#MODIFIED BY AKASH GOEL
+#ver 1.0
+  
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+import requests,time,smtplib
+from bs4 import  BeautifulSoup
+from notify_run import Notify
+from datetime import datetime
+import base64
+ 
+#USER INPUT-------------------------------------but I make it comment because I want to specify this product only.
+'''
+url = input("Enter your URL here : ")
+dp = int(input("Enter your desired price : "))
+'''
+#-----------------------------------------------
+ 
+url = "https://www.flipkart.com/nike-revolution-3-running-shoes-men/p/itmffvj26qq9dgxu?pid=SHOFFVJ2HCD4HC6Z&lid=LSTSHOFFVJ2HCD4HC6ZEWG9LJ&marketplace=FLIPKART&srno=s_1_3&otracker=search&otracker1=search&fm=SEARCH&iid=f866dd43-1be5-4fdb-abb7-f3ff10365e45.SHOFFVJ2HCD4HC6Z.SEARCH&ppt=sp&ppn=sp&ssid=oa4zif1mkw0000001569686672249&qH=0efcf983b0efa0a7"
+flipkart_url = "https://www.flipkart.com/nike-revolution-3-running-shoes-men/p/itmffvj26qq9dgxu?pid=SHOFFVJ2HCD4HC6Z&lid=LSTSHOFFVJ2HCD4HC6ZEWG9LJ&marketplace=FLIPKART&srno=s_1_3&otracker=search&otracker1=search&fm=SEARCH&iid=f866dd43-1be5-4fdb-abb7-f3ff10365e45.SHOFFVJ2HCD4HC6Z.SEARCH&ppt=sp&ppn=sp&ssid=oa4zif1mkw0000001569686672249&qH=0efcf983b0efa0a7"
+
+flipkart = True
+dp = 3000
+pnmsg = "Below Rs. "+str(dp)+" you can get your NIKE Revolution 3."
+URL = url
+
+if flipkart:
+    URL=flipkart_url
+headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'}
+
+price_now = 0
+
+def parsePrice(price):
+    try:
+        main_price = price.replace("₹", "")
+        main_price = main_price.replace(",", "")
+        price_now = int(float(main_price))
+        return True
+    except ValueError:
+        print("heree")
+        return False
+
+def getFlipkartPrice(content):
+    index = content.find("₹")
+    indx1 = content.find("<", index)
+    price = content[index:indx1]
+    if(parsePrice(price)):
+        return price
+    else:
+        return getFlipkartPrice(content[indx1:])
+ 
+def request_price():
+    page = requests.get(URL, headers=headers)
+    
+    soup= BeautifulSoup(page.content,'html.parser')
+    
+    #----------------------------------------------------- TO CHECK WHETHER soup IS WORKING OR NOT
+    '''
+    m=open('soupw.txt',"wb")
+    m.write(soup.prettify().encode("utf-8"))
+    m.close
+    '''
+    #--------------------------------------------------------------------------------------
+
+    if(flipkart):
+        title = "Nike Revolution 3"
+        price = getFlipkartPrice(page.content.decode("utf-8")[0:])
+    else:
+        title = soup.find(id="productTitle").get_text()
+        price = soup.find(id="priceblock_ourprice").get_text()
+
+    
+    #LETS MAKE IT AN INTEGER---------------------------------------------------------------
+    main_price = price.replace("₹", "")
+    main_price = main_price.replace(",", "")
+    global price_now
+    price_now = int(float(main_price))
+ 
+    #VARIABLES FOR SENDING MAIL AND PUSH NOTIFICATION---------------------------------------
+    
+    title1=str(title.strip())
+    main_price1 = main_price
+    pnmsg = "Rs. "+str(main_price1)+" for "+title1
+    
+    print("NAME : "+ title1)
+    print("CURRENT PRICE : "+ str(main_price1))
+    print("DESIRED PRICE : "+ str(dp))
+    #-----------------------------------------------Temporary fixed for values under Rs. 9,999
+ 
+'''
+print(title.strip())
+print(price.strip())
+print(main_price)
+ 
+print(real_price)
+print(type(real_price))
+print(dp)
+print(type(dp))
+'''
+#FUNCTION TO CHECK THE PRICE-------------------------------------------------------
+ 
+ 
+def check_price():
+    request_price()
+    count = 0
+    if(price_now <= dp):
+        pass
+        send_mail()
+        push_notification()
+    else:
+        count = count+1
+        print("Rechecking... Last checked at "+str(datetime.now()))
+        
+#Lets send the mail-----------------------------------------------------------------
+
+def send_mail():
+    server = smtplib.SMTP('smtp.gmail.com',587)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+
+    server.login('dev.amlan.99@gmail.com','gzanpwfvxnldiycw')
+
+    subject = "Price of NIKE Revolution 3 has fallen down below Rs. "+str(dp)
+    body = "Hey Amlan! \n The price of NIKE Revolution 3 on AMAZON has fallen down below Rs."+str(dp)+".\n So, hurry up & check the amazon link right now : "+url
+
+    msg = f"Subject: {subject} \n\n {body} "
+
+    server.sendmail(
+        'dev.amlan.99@gmail.com',
+        'amlansk53@gmail.com',
+        msg
+    )
+    print("HEY AMLAN, EMAIL HAS BEEN SENT SUCCESSFULLY.")
+
+
+    server.quit()
+#Now lets send the push notification-------------------------------------------------
+
+def push_notification():
+    notify = Notify()
+    notify.send(pnmsg)
+    print("HEY AMLAN, PUSH NOTIFICATION HAS BEEN SENT SUCCESSFULLY.")
+    
+    print("Check again after an hour.")
+#Now lets check the price after 1 min -----------------------------------------------   
+
+count = 0
+while(True):
+    count += 1
+    print("Count : "+str(count))
+    check_price()
+    time.sleep(10)
