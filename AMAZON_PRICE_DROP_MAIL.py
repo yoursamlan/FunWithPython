@@ -105,7 +105,7 @@ def send_mail():
     server.starttls()
     server.ehlo()
 
-    server.login('dev.amlan.99@gmail.com','gzanpwfvxnldiycw')
+    server.login('U$erNamE@gmail.com','P@ssW0rd')
 
     subject = "Price of Phillips Trimmer has fallen down below Rs. "+str(dp)
     body = "Hey Amlan! \n The price of Phillips trimmer on AMAZON has fallen down below Rs."+str(dp)+".\n So, hurry up & check the amazon link right now : "+url
@@ -113,8 +113,8 @@ def send_mail():
     msg = f"Subject: {subject} \n\n {body} "
 
     server.sendmail(
-        'dev.amlan.99@gmail.com',
-        'amlansk53@gmail.com',
+        'U$erNamE@gmail.com',
+        'U$erNamE@email.com',
         msg
     )
     print("HEY AMLAN, EMAIL HAS BEEN SENT SUCCESSFULLY.")
