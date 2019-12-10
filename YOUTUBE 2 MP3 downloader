@@ -1,0 +1,44 @@
+#yt to mp3
+#Amlan Saha Kundu
+
+import os
+import shutil
+from os import path
+from pytube import YouTube
+
+print("Your default download path is Music. You can change the directory or press Enter to keep it as Default")
+pathname = input("Enter downloading path :")
+if len(pathname)==0:
+    pathname ="C:/Users/XYZ/Music/YouTube/"
+os.chdir(pathname)
+
+link = input("Enter the video link: ")
+try:
+    yt = YouTube(link)
+    name = str(yt.title)
+    print("\nTitle of the Video : "+name)
+except:
+    print("SORRY, Error occured.\nPlease check the URL and Internet Connection.")
+    exit()
+t=yt.streams.filter(only_audio=True).all()
+print("\nVideo is Loaded.\nInitializing download...\nDownloading...")
+t[0].download()
+print("Video is downloaded.\nConverting to .mp3 audio...")
+
+#print(os.getcwd())
+
+oldpath = name+str(".mp4")
+newpath = name+str(".mp3")
+#print(oldpath)
+#print(newpath)
+
+def main():
+    if path.exists(oldpath):
+        src = path.realpath(oldpath);
+        os.rename(oldpath,newpath)
+        print("Conversion is completed. ENJOY :)")
+		
+if __name__ == "__main__":
+    main()
+
+
